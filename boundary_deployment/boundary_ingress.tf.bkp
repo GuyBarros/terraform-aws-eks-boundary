@@ -1,0 +1,58 @@
+resource "kubernetes_ingress_v1" "boundary_cluster_ingress" {
+  metadata {
+    name = "boundary-cluster-ingress"
+    labels = {
+      app = "boundary-controller"
+    }
+  }
+
+  spec {
+    ingress_class_name = "nginx"
+    
+    rule {
+      http {
+        path {
+          path = "/"
+          backend {
+            service {
+              name = kubernetes_service.boundary-controller-internal.metadata[0].name
+              port {
+                number = 9200
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_ingress_v1" "boundary_worker_ingress" {
+  metadata {
+    name = "boundary-worker-ingress"
+    labels = {
+      app = "boundary-worker"
+    }
+  }
+
+  spec {
+    ingress_class_name = "nginx"
+    
+    rule {
+      http {
+        path {
+          path = "/worker"
+          backend {
+            service {
+              name = kubernetes_service.boundary-worker-internal.metadata[0].name
+              port {
+                number = 9202
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
