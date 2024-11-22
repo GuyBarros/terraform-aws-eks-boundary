@@ -1,0 +1,3 @@
+namespace = "standalone-boundary"
+host_access_ip = ["<your_public_ip>/32"]
+public_key = "ssh-rsa <your_public_ssh_key>"

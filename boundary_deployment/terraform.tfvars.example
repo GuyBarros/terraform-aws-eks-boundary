@@ -1,0 +1,2 @@
+cluster_name = "standalone-boundary-eks"
+boundaryentlicense = "<MY_BOUNDARY_LICENSE>"
